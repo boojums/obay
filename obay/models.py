@@ -7,8 +7,8 @@ class Item(models.Model):
     pic = models.ImageField(upload_to='item_images')
     description = models.TextField()
     slug = models.SlugField(unique=True)
-    #auction = models.ForeignKey(auction)
-    #donor = models.ForeignKey()
+    #auction = models.ForeignKey(Auction)
+    #donor = models.ForeignKey(User)
     #suggested bid/required increment
     # approved
     CATEGORY_CHOICES = (

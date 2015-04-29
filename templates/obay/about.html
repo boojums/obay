@@ -1,18 +1,8 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-{% load staticfiles %}
+{% block title %}About Obay{% endblock %}
 
-<html>
-
-    <head>
-        <title>Obay</title>
-    </head>
-
-    <body>
+{% block body_block %}
         <h1>About Obay!</h1>
         hello world! <strong>{{ boldmessage }}</strong><br />
-        <a href="/obay/">Home</a><br />
-        <img src="{% static 'images/pancake_bunny.png' %}" alt="Bunny" />
-    </body>
-
-</html>
+{% endblock %}

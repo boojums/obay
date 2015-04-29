@@ -22,6 +22,12 @@ SECRET_KEY = 'c72($!76dznu!83+a!d5zrs^5z(@n0el&utmz*w3uri%^@f=wk'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if DEBUG:
+    # Dev server email settings
+    # python -m smtpd -n -c DebuggingServer localhost:1025
+    MAIL_HOST = 'localhost'
+    EMAIL_PORT = 1025
+
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -36,6 +42,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'registration',
     'obay',
 )
 
@@ -76,6 +83,13 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Registration settings
+REGISTRATION_OPEN = True                # If True, users can register
+ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
+REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
+LOGIN_REDIRECT_URL = '/obay/'  # The page you want users to arrive at after they successful log in
+LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
 
 
 # Static files (CSS, JavaScript, Images)

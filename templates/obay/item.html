@@ -1,16 +1,9 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-{% load staticfiles %}
+{% block title %}{{ category_name }}{% endblock %}
 
-<html>
-
-    <head>
-        <title>Obay</title>
-    </head>
-
-    <body>
+{% block body_block %}
         <h1>{{ item_name }}</h1>
-
         {% if item %}
             {% if bids %}
             <ul>
@@ -21,11 +14,9 @@
             {% else %}
                 <strong>No bids yet!</strong><br />
             {% endif %} 
-            <a href='/obay/item/{{ item_name_slug }}/add_bid/'>Bid on this!</a>
+            <a href="{% url 'add_bid' item_name_slug %}">Bid on this!</a>
         {% else %}
             The specified item {{ item_name }} does not exist!
         {% endif %}   
+{% endblock %}
 
-    </body>
-
-</html>
