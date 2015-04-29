@@ -1,13 +1,32 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
+    <div class="page-header">
+        <h1>Obay</a><small> bid on stuff </small></h1>
+    </div> 
+
+    <div class="row">
+        
         {% if items %}
             <ul>
                 {% for item in items %}
-                <li><a href="{% url 'item' item.slug %}">{{ item.name }}</a></li>
+                <div class="col-sm-6 col-md-4">                
+                    <div class="thumbnail">
+                        <img src="{{ item.pic.url }}" style="width:150px">
+                        <div class="caption">
+                            <h3>{{ item.name }}</h3>
+                            <p>{{ item.description }}</p>
+
+                            <p>Top bid: ${{ item.top_bid.amount }}</p>
+                            <p><a href="{% url 'add_bid' item.slug %}" class="btn btn-primary" role="button">Bid</a> 
+                                <a href="{% url 'item' item.slug %}" class="btn btn-default" role="button">More info</a></p>
+                          </div>
+                        </div>
+                      </div>
                 {% endfor %}
             </ul>
         {% else %}
             <strong>No items.</strong><br />
         {% endif %} 
+    </div>
 {% endblock %}

@@ -19,6 +19,9 @@ class Item(models.Model):
                                 choices=CATEGORY_CHOICES,
                                 default='O')
 
+    def top_bid(self):
+        return Bid.objects.filter(item=self).order_by('amount')[0]
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Item, self).save(*args, **kwargs)

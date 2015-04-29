@@ -8,6 +8,8 @@ from obay.forms import ItemForm, BidForm, UserForm, UserProfileForm
 
 def index(request):
     item_list = Item.objects.order_by('name')[:]
+    top_bids = {}
+
     context_dict = {'items': item_list}
 
     return render(request, 'obay/index.html', context_dict)
