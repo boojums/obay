@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 class Item(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    pic = models.ImageField(upload_to='item_images')
+    pic = models.ImageField(upload_to='item_images/')
     description = models.TextField()
     slug = models.SlugField(unique=True)
     #auction = models.ForeignKey(Auction)
@@ -20,7 +20,11 @@ class Item(models.Model):
                                 default='O')
 
     def top_bid(self):
-        return Bid.objects.filter(item=self).order_by('amount')[0]
+        try:
+            top = Bid.objects.filter(item=self).order_by('-amount')[0]
+        except:
+            return None
+        return top
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
@@ -33,7 +37,7 @@ class Bid(models.Model):
     item = models.ForeignKey(Item)
     time = models.DateTimeField(auto_now_add=True)
     amount = models.IntegerField()
-    #bidderid = models.ForeignKey()
+    user = models.ForeignKey(User)
 
     def __unicode__(self):
         return '{0} - {1}'.format(self.time, self.amount)
@@ -44,6 +48,7 @@ class Auction(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
 
+# TODO: support unicode username admin field 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
 

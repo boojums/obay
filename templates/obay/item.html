@@ -5,10 +5,14 @@
 {% block body_block %}
         <h1>{{ item_name }}</h1>
         {% if item %}
+            <img src="{{ item.pic.url }}" style="height:150px">        
+            <p>{{ item.description }}</p>
             {% if bids %}
             <ul>
                 {% for bid in bids %}
-                <li>{{ bid.amount }}</li>
+                <li>${{ bid.amount }} by {{ bid.user.username }} at  
+                    {{ bid.time|date:"P" }} on 
+                    {{ bid.time|date:"d M Y" }}</li>
                 {% endfor %}
             </ul>
             {% else %}

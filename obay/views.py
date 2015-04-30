@@ -67,6 +67,7 @@ def add_bid(request, item_name_slug):
                 # Need to do a bit more work before we commit
                 bid = form.save(commit=False)
                 bid.item = item
+                bid.user = request.user
                 bid.save()
                 return itemview(request, item_name_slug)
         else:

@@ -1,6 +1,8 @@
 from django import forms
 from obay.models import Item, Bid, User, UserProfile
 
+# TDOO: maniupate image
+# TODO: save image to subdirectory
 class ItemForm(forms.ModelForm):
     name = forms.CharField(max_length=128)
     description = forms.CharField()
@@ -14,7 +16,6 @@ class ItemForm(forms.ModelForm):
 
 # TODO: add to is_valid to see if bid is higher than previous bid!
 class BidForm(forms.ModelForm):
-    #Item
     amount = forms.IntegerField()
 
     class Meta:
