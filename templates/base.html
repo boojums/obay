@@ -46,13 +46,11 @@
                         </ul>
                     {% else %}
                         <li>
-                            <p class="navbar-btn">
-                                <a href="{% url 'registration_register' %}" class="btn btn-success">Sign up</a>
-                            </p>
+                            <a href="{% url 'registration_register' %}">Sign up</a>
                         </li>
                         <li>
                             <p class="navbar-btn">
-                                <a href="{% url 'auth_login' %}" class="btn btn-default">Sign in</a>
+                                <a href="{% url 'auth_login' %}" class="btn btn-success">Sign in</a>
                             </p>
                         </li>
                     {% endif %}
