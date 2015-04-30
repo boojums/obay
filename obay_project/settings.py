@@ -28,6 +28,11 @@ if DEBUG:
     MAIL_HOST = 'localhost'
     EMAIL_PORT = 1025
 
+FIXTURE_PATH = os.path.join(BASE_DIR, 'fixtures')
+FIXTURE_DIRS = (
+    FIXTURE_PATH,
+)
+
 TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
