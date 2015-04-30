@@ -3,7 +3,8 @@
 {% block title %}{{ item.name }}{% endblock %}
 
 {% block body_block %}
-        <h1>Bid for this item</h1>
+     <div class="container">
+       <h1>Bid for this item</h1>
 
         <form id='bid_form' method='post' action="{% url 'add_bid' item_name_slug %}">
             {% csrf_token %}
@@ -18,4 +19,5 @@
             {% endfor %}
             <input type='submit' name='submit' value='Bid!'>
         </form>
+    </div>
 {% endblock %}

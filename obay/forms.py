@@ -1,4 +1,6 @@
 from django import forms
+from django.core.exceptions import ValidationError
+
 from obay.models import Item, Bid, User, UserProfile
 
 # TDOO: maniupate image
@@ -18,9 +20,20 @@ class ItemForm(forms.ModelForm):
 class BidForm(forms.ModelForm):
     amount = forms.IntegerField()
 
+    def __init__(self, *args, **kwargs):
+        self.item = kwargs.pop('item', None)
+        super(BidForm, self).__init__(*args, **kwargs)
+
     class Meta:
         model = Bid
         fields = ('amount',)
+
+    def clean_amount(self):
+        amount = self.cleaned_data['amount']
+        topbid = self.item.top_bid()
+
+        if amount <= topbid.amount:
+            raise ValidationError("Bid needs to be higher than the current top bid of ${}".format(topbid.amount))
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())

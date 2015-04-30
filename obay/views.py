@@ -61,7 +61,7 @@ def add_bid(request, item_name_slug):
         item = None
 
     if request.method == 'POST':
-        form = BidForm(request.POST)
+        form = BidForm(request.POST, item=item)
         if form.is_valid():
             if item:
                 # Need to do a bit more work before we commit
