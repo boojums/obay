@@ -7,8 +7,9 @@ from obay.models import Item, Bid, Auction
 from obay.forms import ItemForm, BidForm, UserForm, UserProfileForm
 
 def index(request):
-    item_list = Item.objects.order_by('name')[:]
-    top_bids = {}
+    # Only show approved items from current auction
+    current = Auction.objects.filter(is_active=True)
+    item_list = Item.objects.filter(auction=current, approved=True).order_by('name')[:] 
 
     context_dict = {'items': item_list}
 
@@ -19,8 +20,6 @@ def about(request):
 
     return render(request, 'obay/about.html', context_dict)
     
-    #return HttpResponse("This is the Obay auction site. <a href='/obay/'>Home</a>")
-
 def itemview(request, item_name_slug):
     context_dict = {}
     try:

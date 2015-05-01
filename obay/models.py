@@ -2,6 +2,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
+# TODO: implement custom manager for active Auction stuff
 class Auction(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField()
@@ -16,6 +17,9 @@ class Auction(models.Model):
                 is_active=True).update(is_active=False)
         super(Auction, self).save(*args, **kwargs)
 
+    def current(self):
+        return Auction.objects.filter(is_active=True)
+
     def __unicode__(self):
         return self.name
 
@@ -24,9 +28,9 @@ class Item(models.Model):
     pic = models.ImageField(upload_to='item_images/')
     description = models.TextField()
     slug = models.SlugField(unique=True)
-    auction = models.ForeignKey(Auction, null=True)
-    donor = models.ForeignKey(User, null=True)
-    approved = models.BooleanField(default=False)
+    auction = models.ForeignKey(Auction)
+    donor = models.ForeignKey(User)
+    approved = models.BooleanField(default=True)
 
     CATEGORY_CHOICES = (
         ('O', 'Orienteering'),

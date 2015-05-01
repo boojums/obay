@@ -17,7 +17,7 @@ class ItemForm(forms.ModelForm):
         fields = ('name', 'description', 'pic', 'category')
 
 class BidForm(forms.ModelForm):
-    amount = forms.IntegerField()
+    amount = forms.IntegerField(min_value=1)
 
     def __init__(self, *args, **kwargs):
         self.item = kwargs.pop('item', None)
@@ -33,6 +33,7 @@ class BidForm(forms.ModelForm):
 
         if topbid and (amount <= topbid.amount):
             raise ValidationError("Bid needs to be higher than the current top bid of ${}".format(topbid.amount))
+
         return amount
 
 class UserForm(forms.ModelForm):

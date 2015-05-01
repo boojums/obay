@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'obay_project.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
 
+    url(r'^$', 'obay.views.index', name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^obay/', include('obay.urls')),
     (r'^accounts/', include('registration.backends.default.urls')),
