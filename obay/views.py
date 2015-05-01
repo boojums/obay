@@ -7,12 +7,13 @@ from django.contrib.auth.decorators import permission_required
 from obay.models import Item, Bid, Auction
 from obay.forms import ItemForm, BidForm, UserForm, UserProfileForm
 
+# TODO: use js countdown such as: http://keith-wood.name/countdown.html
 def index(request):
     # Only show approved items from current auction
-    current = Auction.objects.filter(is_active=True)
-    item_list = Item.objects.filter(auction=current, approved=True).order_by('name')[:] 
+    current_auction = Auction.objects.filter(is_active=True)[0]
+    item_list = Item.objects.filter(auction=current_auction, approved=True).order_by('name')[:] 
 
-    context_dict = {'items': item_list}
+    context_dict = {'items': item_list, 'current_auction': current_auction}
 
     return render(request, 'obay/index.html', context_dict)
 

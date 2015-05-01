@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
+
 {% block body_block %}
     <div class="page-header">
-        <h1>Obay</a><small> bid on stuff </small></h1>
+        <h1>{{ current_auction.name }} </h1>
+        <p>This is a test auction for a potential online auction fundraiser.
+        <div class="alert alert-success" role="alert">
+            There are {{ current_auction.time_left.days }} days and {{current_auction.time_left.hours}} hours left in this auction! Bid now!
+        </div>        
     </div> 
 
     <div class="row">
@@ -31,4 +36,5 @@
             <strong>No items.</strong><br />
         {% endif %} 
     </div>
+
 {% endblock %}

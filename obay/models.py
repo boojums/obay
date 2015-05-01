@@ -1,3 +1,5 @@
+import datetime as dt
+
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
@@ -16,6 +18,18 @@ class Auction(models.Model):
             Auction.objects.filter(
                 is_active=True).update(is_active=False)
         super(Auction, self).save(*args, **kwargs)
+
+    def time_left(self):
+        ''' Return timedelta until end of auction.'''
+        # Need to both be aware or naive, so set now to have same tz as used in Auction
+        tz = self.end.tzinfo
+        now = dt.datetime.now(tz=tz)
+        diff = self.end - now
+        days = diff.days
+        hours = diff.seconds / (60*60)
+        minutes = (diff.seconds % (60*60)) / 60
+        context = {'days': days, 'hours': hours, 'minutes': minutes}
+        return context
 
     def current(self):
         return Auction.objects.filter(is_active=True)
