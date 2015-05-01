@@ -24,9 +24,14 @@
                                 <p>Top bid: ${{ item.top_bid.amount }} ({{ item.top_bid.user.username }})</p>
                             {% else %}
                                 <p>No bids yet!</p>
-                            {% endif %}    
+                            {% endif %}
+                            <form method="post" action="">
+                                {{ formset.management_form }}
+                                {{ formset.forloop.counter0 }}
+                            </form>
                             <p><a href="{% url 'add_bid' item.slug %}" class="btn btn-primary" role="button">Bid</a> 
                                 <a href="{% url 'item' item.slug %}" class="btn btn-default" role="button">More info</a></p>
+
                           </div>
                         </div>
                       </div>
