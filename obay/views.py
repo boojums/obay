@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import permission_required
 
 from obay.models import Item, Bid, Auction
 from obay.forms import ItemForm, BidForm, UserForm, UserProfileForm
@@ -38,6 +39,7 @@ def itemview(request, item_name_slug):
 
     return render(request, 'obay/item.html', context_dict)
 
+@permission_required('obay.can_add_item', raise_exception=False)
 def add_item(request):
     if request.method == 'POST':
         form = ItemForm(request.POST, request.FILES)
@@ -53,6 +55,7 @@ def add_item(request):
 
     return render(request, 'obay/add_item.html', {'form': form})
 
+@login_required()
 def add_bid(request, item_name_slug):
     try:
         item = Item.objects.get(slug=item_name_slug)
