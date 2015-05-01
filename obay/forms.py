@@ -16,7 +16,6 @@ class ItemForm(forms.ModelForm):
         model = Item
         fields = ('name', 'description', 'pic', 'category')
 
-# TODO: add to is_valid to see if bid is higher than previous bid!
 class BidForm(forms.ModelForm):
     amount = forms.IntegerField()
 
@@ -32,8 +31,9 @@ class BidForm(forms.ModelForm):
         amount = self.cleaned_data['amount']
         topbid = self.item.top_bid()
 
-        if amount <= topbid.amount:
+        if topbid and (amount <= topbid.amount):
             raise ValidationError("Bid needs to be higher than the current top bid of ${}".format(topbid.amount))
+        return amount
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
