@@ -25,8 +25,9 @@
                             {% else %}
                                 <p>No bids yet!</p>
                             {% endif %}    
-                            <p><a href="{% url 'add_bid' item.slug %}" class="btn btn-primary" role="button">Bid</a> 
-                                <a href="{% url 'item' item.slug %}" class="btn btn-default" role="button">More info</a></p>
+                            <p>
+                            <a href="{%url 'add_bid' item.slug%}" class="btn btn-primary">Bid!</a>
+                            <a href="{% url 'item' item.slug %}" class="btn btn-default" role="button">More info</a></p>
                           </div>
                         </div>
                       </div>
@@ -36,5 +37,4 @@
             <strong>No items.</strong><br />
         {% endif %} 
     </div>
-
 {% endblock %}
