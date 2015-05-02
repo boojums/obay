@@ -61,9 +61,9 @@ class Item(models.Model):
             return None
         return top
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.name)
-    #     super(Item, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+         self.slug = slugify(self.name)
+         super(Item, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
