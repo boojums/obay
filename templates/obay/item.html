@@ -5,6 +5,7 @@
 {% block body_block %}
     <h1>{{ item_name }}</h1>
     {% if item %}
+        <h1>{{ item.name }}</h1>
         <img src="{{ item.pic.url }}" style="height:150px">        
         <p>{{ item.description }}</p>
         {% if bids %}
@@ -18,7 +19,23 @@
         {% else %}
             <strong>No bids yet!</strong><br />
         {% endif %} 
-        <a href="{% url 'add_bid' item_name_slug %}">Bid on this!</a>
+        {% if user.is_authenticated %}        
+            <form id='bid_form' method='post' action="{% url 'item' item_name_slug %}">
+                {% csrf_token %}
+                {% for hidden in form.hidden_fields %}
+                    {{ hidden }}
+                {% endfor %}
+
+                {% for field in form.visible_fields %}
+                    {{ field.errors}}
+                    {{ field.help_text }}
+                    {{ field }}                    
+                {% endfor %}
+                <input type='submit' name='submit' value='Bid!'>
+            </form>
+        {% else %}
+            <p>Sign in to bid on this!</p>
+        {% endif %}
     {% else %}
         The specified item {{ item_name }} does not exist!
     {% endif %}   

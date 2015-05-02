@@ -74,9 +74,6 @@ class Bid(models.Model):
     amount = models.IntegerField()
     user = models.ForeignKey(User)
 
-    def save(self, *args, **kwargs):
-        super(Bid, self).save(*args, **kwargs)
-
     def __unicode__(self):
         return '{0} - {1}'.format(self.time, self.amount)
 

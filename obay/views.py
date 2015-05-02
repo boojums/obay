@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -22,7 +22,7 @@ def about(request):
 
     return render(request, 'obay/about.html', context_dict)
     
-def itemview(request, item_name_slug, topbid=None):
+def itemview(request, item_name_slug):
     try:
         item = Item.objects.get(slug=item_name_slug)
     except:
@@ -39,7 +39,8 @@ def itemview(request, item_name_slug, topbid=None):
             bid.item = item
             bid.user = request.user
             bid.save()
-            return itemview(request, item_name_slug)
+            message = 'Bid added!'
+            return redirect('item', item_name_slug) 
     else:
         print form.errors
 

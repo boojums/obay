@@ -30,7 +30,6 @@ class BidForm(forms.ModelForm):
     def clean_amount(self):
         amount = self.cleaned_data['amount']
         topbid = self.item.top_bid()
-
         if topbid and (amount <= topbid.amount):
             raise ValidationError("Bid needs to be higher than the current top bid of ${}".format(topbid.amount))
 
