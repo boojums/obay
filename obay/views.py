@@ -48,6 +48,13 @@ def itemview(request, item_name_slug):
 
     return render(request, 'obay/item.html', context_dict)
 
+def my_bids(request):
+    ''' Show all of the current user's bids.'''
+    bids = Bid.objects.filter(user=request.user).order_by('item', '-amount')
+
+    context_dict = {'bids': bids}
+    return render(request, 'obay/my_bids.html', context_dict)
+
 @permission_required('obay.can_add_item', raise_exception=False)
 def add_item(request):
     if request.method == 'POST':
