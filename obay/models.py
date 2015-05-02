@@ -3,7 +3,7 @@ import datetime as dt
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-
+       
 # TODO: implement custom manager for active Auction stuff
 class Auction(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -61,9 +61,9 @@ class Item(models.Model):
             return None
         return top
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Item, self).save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     self.slug = slugify(self.name)
+    #     super(Item, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
@@ -73,6 +73,9 @@ class Bid(models.Model):
     time = models.DateTimeField(auto_now_add=True)
     amount = models.IntegerField()
     user = models.ForeignKey(User)
+
+    def save(self, *args, **kwargs):
+        super(Bid, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return '{0} - {1}'.format(self.time, self.amount)

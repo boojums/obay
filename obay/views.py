@@ -22,21 +22,28 @@ def about(request):
 
     return render(request, 'obay/about.html', context_dict)
     
-def itemview(request, item_name_slug):
-    context_dict = {}
+def itemview(request, item_name_slug, topbid=None):
     try:
         item = Item.objects.get(slug=item_name_slug)
-        context_dict['item_name'] = item.name
+    except:
+        item = None
 
-        # Retrieve all of the bids
-        bids = Bid.objects.filter(item=item).order_by('amount')
-        context_dict['bids'] = bids
+    # Retrieve all of the bids
+    bids = Bid.objects.filter(item=item).order_by('-amount')
 
-        # Add this to dict to have a check that the item exists
-        context_dict['item'] = item
-        context_dict['item_name_slug'] = item_name_slug
-    except Item.DoesNotExist:
-        pass
+    form = BidForm(request.POST or None, item=item)
+    if form.is_valid():
+        if item:
+            # Need to do a bit more work before we commit
+            bid = form.save(commit=False)
+            bid.item = item
+            bid.user = request.user
+            bid.save()
+            return itemview(request, item_name_slug)
+    else:
+        print form.errors
+
+    context_dict = {'form': form, 'bids': bids, 'item': item, 'item_name_slug': item_name_slug}
 
     return render(request, 'obay/item.html', context_dict)
 
@@ -55,28 +62,3 @@ def add_item(request):
         form = ItemForm()
 
     return render(request, 'obay/add_item.html', {'form': form})
-
-@login_required()
-def add_bid(request, item_name_slug):
-    try:
-        item = Item.objects.get(slug=item_name_slug)
-    except:
-        item = None
-
-    if request.method == 'POST':
-        form = BidForm(request.POST, item=item)
-        if form.is_valid():
-            if item:
-                # Need to do a bit more work before we commit
-                bid = form.save(commit=False)
-                bid.item = item
-                bid.user = request.user
-                bid.save()
-                return itemview(request, item_name_slug)
-        else:
-            print form.errors
-    else:
-        form = BidForm()
-
-    context_dict = {'form': form, 'item': item, 'item_name_slug': item_name_slug}
-    return render(request, 'obay/add_bid.html', context_dict)
