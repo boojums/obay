@@ -61,8 +61,10 @@ def add_item(request):
         form = ItemForm(request.POST, request.FILES)
 
         if form.is_valid():
-            form.save(commit=True)
-
+            item = form.save(commit=False)
+            item.auction = Auction.objects.get(is_active=True)
+            item.donor = request.user
+            item.save()
             return index(request)
         else:
             print form.errors

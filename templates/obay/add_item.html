@@ -12,9 +12,11 @@
             {% endfor %}
 
             {% for field in form.visible_fields %}
-                {{ field.errors}}
-                {{ field.help_text }}
-                {{ field }}
+                <div class="form-group">
+                    {{ field.errors}}
+                    {{ field.help_text }}
+                    {{ field.label_tag }}{{ field }}
+                </div>
             {% endfor %}
             <input type='submit' name='submit' value='Submit item'>
         </form>
