@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}{{ category_name }}{% endblock %}
 
@@ -23,7 +24,7 @@
                     <tr>
                         <td width=10%>{{ bid.user.username }}</td>
                         <td width=10%>${{ bid.amount }}</td>
-                        <td width=20%>{{ bid.time|date:"P" }} {{ bid.time|date:"d M Y" }}</td>
+                        <td width=20%>{{ bid.time|naturaltime }}</td>
                     </tr>
                     {% endfor %}
                 </tbody>
