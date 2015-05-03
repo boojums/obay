@@ -6,7 +6,7 @@
         <h1>{{ current_auction.name }} </h1>
         <p>This is a test auction for a potential online auction fundraiser.
         <div class="alert alert-success" role="alert">
-            There are {{ current_auction.time_left.days }} days and {{current_auction.time_left.hours}} hours left in this auction! Bid now!
+            There are {{ current_auction.end|timeuntil }} left in this auction! Bid now!
         </div>        
     </div> 
 

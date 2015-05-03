@@ -20,7 +20,7 @@ class Auction(models.Model):
         super(Auction, self).save(*args, **kwargs)
 
     def time_left(self):
-        ''' Return timedelta until end of auction.'''
+        ''' Return timedelta until end of auction for more customization.'''
         # Need to both be aware or naive, so set now to have same tz as used in Auction
         tz = self.end.tzinfo
         now = dt.datetime.now(tz=tz)
