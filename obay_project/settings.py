@@ -35,6 +35,8 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_PORT = ''
 EMAIL_USE_TLS = ''
 
+
+# Fixtures
 FIXTURE_PATH = os.path.join(BASE_DIR, 'fixtures')
 FIXTURE_DIRS = (
     FIXTURE_PATH,
@@ -42,7 +44,7 @@ FIXTURE_DIRS = (
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -54,7 +56,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.humanize',   
+    'django.contrib.humanize',
     
     'registration',
     'sorl.thumbnail',    
@@ -110,11 +112,12 @@ LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-STATIC_PATH = os.path.join(BASE_DIR, 'static')
+STATIC_PATH = os.path.join(BASE_DIR, 'obay/static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
+STATIC_ROOT = '/home/boojum/obay_project/static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
