@@ -32,7 +32,7 @@
         {% else %}
             <strong>No bids yet!</strong><br />
         {% endif %} 
-        {% if user.is_authenticated %}   
+        {% if user.is_authenticated %} 
             <p>Want this item? Give us a bid!</p>     
             <form id='bid_form' method='post' action="{% url 'item' item_name_slug %}">
                 {% csrf_token %}
