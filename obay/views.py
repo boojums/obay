@@ -23,8 +23,9 @@ def index(request):
         items = paginator.page(1)
     except EmptyPage:
         items = paginator.page(paginator.num_pages)
+    pagenums = range(1, paginator.num_pages+1)
 
-    context_dict = {'items': items, 'current_auction': current_auction}
+    context_dict = {'items': items, 'current_auction': current_auction, 'pagenums':pagenums}
 
     return render(request, 'obay/index.html', context_dict)
 
