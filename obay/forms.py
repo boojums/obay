@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 
 from obay.models import Item, Bid, User, UserProfile
 
-# TDOO: maniupate image
 # TODO: save image to subdirectory
 class ItemForm(forms.ModelForm):
     name = forms.CharField(max_length=128)
@@ -11,7 +10,9 @@ class ItemForm(forms.ModelForm):
     pic = forms.ImageField()
     category = forms.ChoiceField(choices=Item.CATEGORY_CHOICES)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
-
+    auction = forms.CharField(widget=forms.HiddenInput(), required=False)
+    donor = forms.CharField(widget=forms.HiddenInput(), required=False)
+    
     class Meta:
         model = Item
         fields = ('name', 'description', 'pic', 'category')

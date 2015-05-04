@@ -17,6 +17,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
+    SECRET_KEY = f.read().strip() 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -26,6 +28,12 @@ DEBUG = True
 #     # python -m smtpd -n -c DebuggingServer localhost:1025
 #     MAIL_HOST = 'localhost'
 #     EMAIL_PORT = 1025
+
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = ''
+EMAIL_USE_TLS = ''
 
 
 # Fixtures
@@ -48,8 +56,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+<<<<<<< HEAD
     'django.contrib.humanize',
+=======
+    'django.contrib.humanize',   
+    
+>>>>>>> 1985835743380dc602b6d18fa25f79f89cf34b40
     'registration',
+    'sorl.thumbnail',    
+    'django_forms_bootstrap',
     'obay',
 )
 
@@ -115,3 +130,18 @@ TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 TEMPLATE_DIRS = (
     TEMPLATE_PATH,
 )
+
+# django-resized defaults
+DJANGORESIZED_DEFAULT_SIZE = [640, 480]
+DJANGORESIZED_DEFAULT_QUALITY = 75
+DJANGORESIZED_DEFAULT_KEEP_META = True
+
+
+try: 
+    import local_settings
+except:
+    print """
+    =======================================
+    Missing local_settings.py file. Needed for email and database information.
+    =======================================
+    """

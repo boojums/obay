@@ -3,7 +3,9 @@ import datetime as dt
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
-       
+
+from django_resized import ResizedImageField
+
 # TODO: implement custom manager for active Auction stuff
 class Auction(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -39,7 +41,8 @@ class Auction(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    pic = models.ImageField(upload_to='item_images/')
+    # TODO: media directory for each auction
+    pic = ResizedImageField(size=[1000,1000], quality=75, upload_to='item_images/')
     description = models.TextField()
     slug = models.SlugField(unique=True)
     auction = models.ForeignKey(Auction)
@@ -61,9 +64,9 @@ class Item(models.Model):
             return None
         return top
 
-    # def save(self, *args, **kwargs):
-    #     self.slug = slugify(self.name)
-    #     super(Item, self).save(*args, **kwargs)
+    def save(self, *args, **kwargs):
+         self.slug = slugify(self.name)
+         super(Item, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
