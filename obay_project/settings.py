@@ -17,16 +17,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'c72($!76dznu!83+a!d5zrs^5z(@n0el&utmz*w3uri%^@f=wk'
+with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
+    SECRET_KEY = f.read().strip() 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-if DEBUG:
-    # Dev server email settings
-    # python -m smtpd -n -c DebuggingServer localhost:1025
-    MAIL_HOST = 'localhost'
-    EMAIL_PORT = 1025
+# if DEBUG:
+#     # Dev server email settings
+#     # python -m smtpd -n -c DebuggingServer localhost:1025
+#     MAIL_HOST = 'localhost'
+#     EMAIL_PORT = 1025
+
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_PORT = ''
+EMAIL_USE_TLS = ''
 
 FIXTURE_PATH = os.path.join(BASE_DIR, 'fixtures')
 FIXTURE_DIRS = (
@@ -121,3 +128,13 @@ TEMPLATE_DIRS = (
 DJANGORESIZED_DEFAULT_SIZE = [640, 480]
 DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
+
+
+try: 
+    import local_settings
+except:
+    print """
+    =======================================
+    Missing local_settings.py file. Needed for email and database information.
+    =======================================
+    """

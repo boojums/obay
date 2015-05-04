@@ -2,3 +2,5 @@
 db.sqlite3
 media/*
 static/*
+obay_project/local_settings.py
+secret_key.txt
