@@ -6,7 +6,7 @@
     <h1>{{ item_name }}</h1>
     {% if item %}
         <h1>{{ item.name }}</h1>
-        <img src="{{ item.pic.url }}" style="height:150px">        
+        <img src="{{ item.pic.url }}" style="height:350px">        
         <p>{{ item.description }}</p>
 
         {% if bids %}
@@ -44,7 +44,7 @@
                     {{ field.help_text }}
                     {{ field }}                    
                 {% endfor %}
-                <input type='submit' name='submit' value='Bid!' class='btn btn-primary'>
+                <button type="submit" class='btn btn-sm btn-primary'>Bid!</button>
             </form>
         {% else %}
             <p><a href="{% url 'auth_login' %}">Sign in</a> and be the first to bid on this!</p>

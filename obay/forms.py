@@ -3,7 +3,6 @@ from django.core.exceptions import ValidationError
 
 from obay.models import Item, Bid, User, UserProfile
 
-# TDOO: maniupate image
 # TODO: save image to subdirectory
 class ItemForm(forms.ModelForm):
     name = forms.CharField(max_length=128)

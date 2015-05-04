@@ -47,7 +47,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'registration',
+    'sorl.thumbnail',    
+    'django_forms_bootstrap',
     'obay',
 )
 

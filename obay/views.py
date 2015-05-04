@@ -64,6 +64,7 @@ def add_item(request):
             item = form.save(commit=False)
             item.auction = Auction.objects.get(is_active=True)
             item.donor = request.user
+            item.thumbnail = item.pic
             item.save()
             return index(request)
         else:
