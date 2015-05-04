@@ -56,12 +56,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
     'django.contrib.humanize',
-=======
-    'django.contrib.humanize',   
     
->>>>>>> 1985835743380dc602b6d18fa25f79f89cf34b40
     'registration',
     'sorl.thumbnail',    
     'django_forms_bootstrap',
