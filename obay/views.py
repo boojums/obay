@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import permission_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from obay.models import Item, Bid, Auction
 from obay.forms import ItemForm, BidForm, UserForm, UserProfileForm
@@ -12,8 +13,19 @@ def index(request):
     # Only show approved items from current auction
     current_auction = Auction.objects.filter(is_active=True)[0]
     item_list = Item.objects.filter(auction=current_auction, approved=True).order_by('name')[:] 
+    paginator = Paginator(item_list, 3)
 
-    context_dict = {'items': item_list, 'current_auction': current_auction}
+    page = request.GET.get('page')
+    try:
+        items = paginator.page(page)
+    except PageNotAnInteger:
+        # send first page of items in case of invalid page
+        items = paginator.page(1)
+    except EmptyPage:
+        items = paginator.page(paginator.num_pages)
+    pagenums = range(1, paginator.num_pages+1)
+
+    context_dict = {'items': items, 'current_auction': current_auction, 'pagenums':pagenums}
 
     return render(request, 'obay/index.html', context_dict)
 
@@ -64,6 +76,7 @@ def add_item(request):
             item = form.save(commit=False)
             item.auction = Auction.objects.get(is_active=True)
             item.donor = request.user
+            item.thumbnail = item.pic
             item.save()
             return index(request)
         else:

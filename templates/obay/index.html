@@ -1,39 +1,63 @@
 {% extends 'base.html' %}
-
+{% load thumbnail %}
 
 {% block body_block %}
     <div class="page-header">
         <h1>{{ current_auction.name }} </h1>
         <p>This is a test auction for a potential online auction fundraiser.
         <div class="alert alert-success" role="alert">
-            There are {{ current_auction.time_left.days }} days and {{current_auction.time_left.hours}} hours left in this auction! Bid now!
+            There are {{ current_auction.end|timeuntil }} left in this auction! Bid now!
         </div>        
     </div> 
 
     <div class="row">
         
         {% if items %}
-            <ul>
-                {% for item in items %}
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">                
-                    <div class="thumbnail">
-                        <img src="{{ item.pic.url }}" style="height:150px">
-                        <div class="caption">
-                            <h3>{{ item.name }}</h3>
-                            {% if item.top_bid %}
-                                <p>Top bid: ${{ item.top_bid.amount }} ({{ item.top_bid.user.username }})</p>
-                            {% else %}
-                                <p>No bids yet!</p>
-                            {% endif %}    
-                            <p>
-                            <a href="{%url 'item' item.slug %}" class="btn btn-primary">More info</a>
-                          </div>
-                        </div>
-                      </div>
-                {% endfor %}
-            </ul>
+            {% for item in items %}
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">       
+                <div class="thumbnail">
+                    {% thumbnail item.pic "200x150" crop="center" as im %}
+                        <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}">
+                    {% endthumbnail %}
+                    <div class="caption">
+                        <h3>{{ item.name }}</h3>
+                        {% if item.top_bid %}
+                            <p>Top bid: ${{ item.top_bid.amount }} ({{ item.top_bid.user.username }})</p>
+                        {% else %}
+                            <p>No bids yet!</p>
+                        {% endif %}
+                        <a href="{%url 'item' item.slug %}" class="btn btn-primary">More info</a>
+                    </div>
+                </div>
+             </div>
+            {% endfor %}
         {% else %}
             <strong>No items.</strong><br />
         {% endif %} 
+    </div>
+    <div class="row"> 
+    <div class="text-center"> 
+        <ul class="pagination pagination-lg">
+            {% if items.has_previous %}
+                <li><a href="?page={{ items.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+            {% else %}
+                <li class = "disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+            {% endif %}
+            
+            {% for n in pagenums %}
+                {% ifequal n items.number %}
+                    <li class="active"><a href="#">{{ n }}<span class="sr-only">(current)</span></a></li>
+                {% else %}
+                    <li><a href="?page={{ n }}">{{ n }}<span class="sr-only">(current)</span></a></li>
+                {% endifequal %}
+            {% endfor %}
+            
+            {% if items.has_next %}
+                <li><a href="?page={{ items.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            {% else %}
+                <li class = "disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+            {% endif %}
+        </div>
+    </div>
     </div>
 {% endblock %}

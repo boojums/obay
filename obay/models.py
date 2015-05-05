@@ -22,7 +22,7 @@ class Auction(models.Model):
         super(Auction, self).save(*args, **kwargs)
 
     def time_left(self):
-        ''' Return timedelta until end of auction.'''
+        ''' Return timedelta until end of auction for more customization.'''
         # Need to both be aware or naive, so set now to have same tz as used in Auction
         tz = self.end.tzinfo
         now = dt.datetime.now(tz=tz)
@@ -41,9 +41,8 @@ class Auction(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=128, unique=True)
-    #pic = models.ImageField(upload_to='item_images/')
     # TODO: media directory for each auction
-    pic = ResizedImageField(size=[1000,1000], upload_to='item_images/')
+    pic = ResizedImageField(size=[1000,1000], quality=75, upload_to='item_images/')
     description = models.TextField()
     slug = models.SlugField(unique=True)
     auction = models.ForeignKey(Auction)
