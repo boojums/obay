@@ -4,14 +4,17 @@
 {% block body_block %}
     <div class="page-header">
         <h1>{{ current_auction.name }} </h1>
-        <p>This is a test auction for a potential online auction fundraiser.
+        <p>This is a test auction for a future US Team online fundraiser.
         <div class="alert alert-success" role="alert">
-            There are {{ current_auction.end|timeuntil }} left in this auction! Bid now!
+            {% if current_auction.bidding_open %}
+                There are {{ current_auction.end|timeuntil }} left in this auction! Bid now!
+            {% else %}
+                This auction is not currently open.
+            {% endif %}
         </div>        
     </div> 
 
     <div class="row">
-        
         {% if items %}
             {% for item in items %}
             <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">       
