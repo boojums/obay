@@ -7,11 +7,12 @@ from obay.models import Item, Bid, User, UserProfile
 class ItemForm(forms.ModelForm):
     name = forms.CharField(max_length=128)
     description = forms.CharField()
+    donor = forms.CharField(max_length=128)
     pic = forms.ImageField()
     category = forms.ChoiceField(choices=Item.CATEGORY_CHOICES)
     slug = forms.CharField(widget=forms.HiddenInput(), required=False)
     auction = forms.CharField(widget=forms.HiddenInput(), required=False)
-    donor = forms.CharField(widget=forms.HiddenInput(), required=False)
+    contact = forms.CharField(widget=forms.HiddenInput(), required=False)
     
     class Meta:
         model = Item

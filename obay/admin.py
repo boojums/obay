@@ -6,7 +6,7 @@ class AuctionAdmin(admin.ModelAdmin):
 
 class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}
-    list_display = ('name', 'auction', 'donor', 'approved', 'category')
+    list_display = ('name', 'auction', 'contact', 'donor', 'approved', 'category')
 
 class BidAdmin(admin.ModelAdmin):
     list_display = ('item', 'time', 'amount', 'user')
