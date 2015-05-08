@@ -137,7 +137,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 try:
-    from local_settings import *
+    import local_settings
 except:
     print """
     =======================================
