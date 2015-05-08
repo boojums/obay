@@ -1,15 +1,8 @@
 {% extends 'base.html' %}
-{% load bootstrap_tags %}
+{% load crispy_forms_tags %}
 
 {% block title %}{% endblock %}
 
 {% block body_block %}
-    <form class="form-horizontal" id='item_form' method='post' action="{% url 'add_item' %}" enctype="multipart/form-data">
-        <legend>Submit item</legend>
-        {% csrf_token %}
-        {{ form|as_bootstrap }}
-        <div class="form-actions">
-            <button type='submit' class='btn btn-primary'>Add</button>
-        </div>
-    </form>
+    {% crispy form %}
 {% endblock %}

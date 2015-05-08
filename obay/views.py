@@ -75,10 +75,9 @@ def add_item(request):
         if form.is_valid():
             item = form.save(commit=False)
             item.auction = Auction.objects.get(is_active=True)
-            item.donor = request.user
-            item.thumbnail = item.pic
+            item.contact = request.user
             item.save()
-            return index(request)
+            return redirect('index')
         else:
             print form.errors
     else:

@@ -60,7 +60,7 @@ INSTALLED_APPS = (
     
     'registration',
     'sorl.thumbnail',    
-    'django_forms_bootstrap',
+    'crispy_forms',
     'obay',
 )
 
@@ -131,6 +131,9 @@ TEMPLATE_DIRS = (
 DJANGORESIZED_DEFAULT_SIZE = [640, 480]
 DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
+
+# crispy default template pack
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 try: 

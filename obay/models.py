@@ -48,7 +48,7 @@ class Item(models.Model):
     slug = models.SlugField(unique=True)
     auction = models.ForeignKey(Auction)
     contact = models.ForeignKey(User)
-    donor = models.TextField(null=True)
+    donor = models.CharField(max_length=128, null=True)
     approved = models.BooleanField(default=True)
 
     CATEGORY_CHOICES = (
