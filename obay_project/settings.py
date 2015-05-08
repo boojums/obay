@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
-    SECRET_KEY = f.read().strip() 
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -57,9 +57,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    
+
     'registration',
-    'sorl.thumbnail',    
+    'sorl.thumbnail',
     'django_forms_bootstrap',
     'obay',
 )
@@ -133,8 +133,8 @@ DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
 
 
-try: 
-    import local_settings
+try:
+    from local_settings import *
 except:
     print """
     =======================================
