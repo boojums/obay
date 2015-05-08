@@ -14,6 +14,9 @@ class ItemForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.helper.form_method = 'POST'
         self.helper.form_action = 'add_item'
+        self.helper.form_class = 'col-md-9 col-md-offset-1'
+        #self.helper.label_class = 'col-sm-2'
+        #self.helper.field_class = 'col-sm-8'
         self.helper.layout = Layout(
             Fieldset(
                 'Item information',
@@ -27,6 +30,7 @@ class ItemForm(forms.ModelForm):
                 Submit('submit', 'Add item')
                 )
             )
+        self.fields['description'].widget.attrs['rows'] = 4
 
     # name = forms.CharField(max_length=50)
     # description = forms.CharField()
