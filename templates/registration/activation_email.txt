@@ -1,6 +1,8 @@
 {% load i18n %}
-{% trans "Activate account at" %} {{ site.name }}:
+{% trans "Activate account at" %} {{ site.name }} for Obay US Orienteering Team Fundraiser:
 
 http://{{ site.domain }}{% url 'registration_activate' activation_key %}
 
 {% blocktrans %}Link is valid for {{ expiration_days }} days.{% endblocktrans %}
+
+You must activate your account in order to bid for items on Obay.

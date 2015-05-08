@@ -20,7 +20,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for bid in bids %}                
+                    {% for bid in bids %}                              
                     <tr>
                         <td width=10%>{{ bid.user.username }}</td>
                         <td width=10%>${{ bid.amount }}</td>
@@ -32,23 +32,27 @@
         {% else %}
             <strong>No bids yet!</strong><br />
         {% endif %} 
-        {% if user.is_authenticated %} 
-            <p>Want this item? Give us a bid!</p>     
-            <form id='bid_form' method='post' action="{% url 'item' item_name_slug %}">
-                {% csrf_token %}
-                {% for hidden in form.hidden_fields %}
-                    {{ hidden }}
-                {% endfor %}
+        {% if item.auction.bidding_open %}
+            {% if user.is_authenticated %} 
+                <p>Want this item? Give us a bid!</p>     
+                <form id='bid_form' method='post' action="{% url 'item' item_name_slug %}">
+                    {% csrf_token %}
+                    {% for hidden in form.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
 
-                {% for field in form.visible_fields %}
-                    {{ field.errors}}
-                    {{ field.help_text }}
-                    {{ field }}                    
-                {% endfor %}
-                <button type="submit" class='btn btn-sm btn-primary'>Bid!</button>
-            </form>
+                    {% for field in form.visible_fields %}
+                        {{ field.errors}}
+                        {{ field.help_text }}
+                        {{ field }}                    
+                    {% endfor %}
+                    <button type="submit" class='btn btn-sm btn-primary'>Bid!</button>
+                </form>
+            {% else %}
+                <p><a href="{% url 'auth_login' %}">Sign in</a> and be the first to bid on this!</p>
+            {% endif %}
         {% else %}
-            <p><a href="{% url 'auth_login' %}">Sign in</a> and be the first to bid on this!</p>
+            <strong>Bidding is not open!</strong><br />            
         {% endif %}
     {% else %}
         The specified item {{ item_name }} does not exist!

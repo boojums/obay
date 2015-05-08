@@ -60,7 +60,7 @@ INSTALLED_APPS = (
 
     'registration',
     'sorl.thumbnail',
-    'django_forms_bootstrap',
+    'crispy_forms',
     'obay',
 )
 
@@ -112,7 +112,7 @@ LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-STATIC_PATH = os.path.join(BASE_DIR, 'obay/static')
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     STATIC_PATH,
@@ -131,6 +131,9 @@ TEMPLATE_DIRS = (
 DJANGORESIZED_DEFAULT_SIZE = [640, 480]
 DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True
+
+# crispy default template pack
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 try:

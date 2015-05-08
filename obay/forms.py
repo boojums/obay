@@ -1,21 +1,41 @@
 from django import forms
 from django.core.exceptions import ValidationError
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder, Button
+from crispy_forms.bootstrap import FormActions, PrependedAppendedText
 
 from obay.models import Item, Bid, User, UserProfile
 
-# TODO: save image to subdirectory
+# TODO: save image to subdirectory for auction
 class ItemForm(forms.ModelForm):
-    name = forms.CharField(max_length=128)
-    description = forms.CharField()
-    pic = forms.ImageField()
-    category = forms.ChoiceField(choices=Item.CATEGORY_CHOICES)
-    slug = forms.CharField(widget=forms.HiddenInput(), required=False)
-    auction = forms.CharField(widget=forms.HiddenInput(), required=False)
-    donor = forms.CharField(widget=forms.HiddenInput(), required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(ItemForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_method = 'POST'
+        self.helper.form_action = 'add_item'
+        self.helper.form_class = 'col-md-9 col-md-offset-1'
+        #self.helper.label_class = 'col-sm-2'
+        #self.helper.field_class = 'col-sm-8'
+        self.helper.layout = Layout(
+            Fieldset(
+                'Item information',
+                'name',
+                'description',
+                'donor',
+                'pic',
+                'category'
+                ),
+            FormActions(
+                Submit('submit', 'Submit'),
+                Button('cancel', 'Cancel', onclick='history.go(-1);')
+                )
+            )
+        self.fields['description'].widget.attrs['rows'] = 4
     
     class Meta:
         model = Item
-        fields = ('name', 'description', 'pic', 'category')
+        fields = ('name', 'description', 'donor', 'pic', 'category')
 
 class BidForm(forms.ModelForm):
     amount = forms.IntegerField(min_value=1)

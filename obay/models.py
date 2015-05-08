@@ -13,6 +13,7 @@ class Auction(models.Model):
     start = models.DateTimeField()
     end = models.DateTimeField()
     is_active = models.BooleanField(default=False)
+    bidding_open = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
         # Only one auction active at a time, in current implementation
@@ -46,7 +47,8 @@ class Item(models.Model):
     description = models.TextField()
     slug = models.SlugField(unique=True)
     auction = models.ForeignKey(Auction)
-    donor = models.ForeignKey(User)
+    contact = models.ForeignKey(User)
+    donor = models.CharField(max_length=128, null=True)
     approved = models.BooleanField(default=True)
 
     CATEGORY_CHOICES = (
@@ -57,7 +59,13 @@ class Item(models.Model):
                                 choices=CATEGORY_CHOICES,
                                 default='O')
 
+    def num_bids(self):
+        ''' Return number of bids on this item.'''
+        num = len(Bid.objects.filter(item=self))
+        return num
+
     def top_bid(self):
+        ''' Return the current wining bid for this item.'''
         try:
             top = Bid.objects.filter(item=self).order_by('-amount')[0]
         except:
