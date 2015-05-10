@@ -19,6 +19,15 @@
         {% endif %}  
     </div> 
 
+    <div class="text-center"> 
+    <div class="btn-group" role="group">
+        <a role="button" class="btn btn-default {% if not noo %}disabled{% endif %}" href="/">Show all</a>
+        <a role="button" class="btn btn-default {% if noo %}disabled{% endif %}" href="?show=noo">Show only non-orienteering items</a>
+    </div>
+    </div>
+
+    <div><br /></div>
+    
     <div class="row">
         {% if items %}
             {% for item in items %}
@@ -46,28 +55,28 @@
         {% endif %} 
     </div>
     <div class="row"> 
-    <div class="text-center"> 
-        <ul class="pagination pagination-lg">
-            {% if items.has_previous %}
-                <li><a href="?page={{ items.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-            {% else %}
-                <li class = "disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
-            {% endif %}
-            
-            {% for n in pagenums %}
-                {% ifequal n items.number %}
-                    <li class="active"><a href="#">{{ n }}<span class="sr-only">(current)</span></a></li>
+        <div class="text-center"> 
+            <ul class="pagination pagination-lg">
+                {% if items.has_previous %}
+                    <li><a href="?page={{ items.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
                 {% else %}
-                    <li><a href="?page={{ n }}">{{ n }}<span class="sr-only">(current)</span></a></li>
-                {% endifequal %}
-            {% endfor %}
-            
-            {% if items.has_next %}
-                <li><a href="?page={{ items.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-            {% else %}
-                <li class = "disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
-            {% endif %}
+                    <li class = "disabled"><a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>
+                {% endif %}
+                
+                {% for n in pagenums %}
+                    {% ifequal n items.number %}
+                        <li class="active"><a href="#">{{ n }}<span class="sr-only">(current)</span></a></li>
+                    {% else %}
+                        <li><a href="?page={{ n }}">{{ n }}<span class="sr-only">({{ n }})</span></a></li>
+                    {% endifequal %}
+                {% endfor %}
+                
+                {% if items.has_next %}
+                    <li><a href="?page={{ items.next_page_number }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                {% else %}
+                    <li class = "disabled"><a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a></li>
+                {% endif %}
+            </div>
         </div>
-    </div>
     </div>
 {% endblock %}

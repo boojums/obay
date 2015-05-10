@@ -40,8 +40,6 @@ class Auction(models.Model):
     def is_open(self):
         tz = self.end.tzinfo
         now = dt.datetime.now(tz)
-        print self.bidding_open, (self.start > now), (self.end < now)
-        print self.start, now
         return self.bidding_open and (self.start < now) and (self.end > now)
 
     def __unicode__(self):

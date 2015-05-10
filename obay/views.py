@@ -16,10 +16,12 @@ def index(request):
     # Some people will only want to see non-orienteering stuff!
     show = request.GET.get('show')
     if show == 'noo':
+        noo = True
         item_list = Item.objects.filter(auction=current_auction, 
             category='NotO',
             approved=True).order_by('name')[:]
     else:
+        noo = False
         item_list = Item.objects.filter(auction=current_auction, approved=True).order_by('name')[:] 
     
     paginator = Paginator(item_list, 3, orphans=2)
@@ -33,7 +35,11 @@ def index(request):
         items = paginator.page(paginator.num_pages)
     pagenums = range(1, paginator.num_pages+1)
 
-    context_dict = {'items': items, 'current_auction': current_auction, 'pagenums':pagenums}
+    context_dict = {'items': items, 
+            'current_auction': current_auction, 
+            'pagenums':pagenums,
+            'noo': noo
+            }
 
     return render(request, 'obay/index.html', context_dict)
 
