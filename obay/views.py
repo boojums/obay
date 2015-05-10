@@ -12,10 +12,18 @@ from obay.forms import ItemForm, BidForm, UserForm, UserProfileForm
 def index(request):
     # Only show approved items from current auction
     current_auction = Auction.objects.filter(is_active=True)[0]
-    item_list = Item.objects.filter(auction=current_auction, approved=True).order_by('name')[:] 
-    paginator = Paginator(item_list, 12, orphans=2)
 
-    page = request.GET.get('page')
+    # Some people will only want to see non-orienteering stuff!
+    show = request.GET.get('show')
+    if show == 'noo':
+        item_list = Item.objects.filter(auction=current_auction, 
+            category='NotO',
+            approved=True).order_by('name')[:]
+    else:
+        item_list = Item.objects.filter(auction=current_auction, approved=True).order_by('name')[:] 
+    
+    paginator = Paginator(item_list, 3, orphans=2)
+    page = request.GET.get('page')    
     try:
         items = paginator.page(page)
     except PageNotAnInteger:

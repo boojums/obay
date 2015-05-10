@@ -6,8 +6,6 @@
         {% if current_auction %}
             <h1>{{ current_auction.name }} </h1>
             <p>{{ current_auction.description }}</p>
-            <p>Start: {{ current_auction.start }}
-            <br>End: {{ current_auction.end }}</p>
 
             {% if current_auction.is_open %}
                 <div class="alert alert-success" role="alert">            
