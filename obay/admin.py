@@ -2,7 +2,7 @@ from django.contrib import admin
 from obay.models import Auction, Item, Bid, UserProfile
 
 class AuctionAdmin(admin.ModelAdmin):
-    list_display = ('name', 'start', 'end', 'description', 'is_active')
+    list_display = ('name', 'start', 'end', 'description', 'is_active', 'bidding_open')
 
 class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('name',)}

@@ -2,12 +2,12 @@ from django import forms
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Fieldset, ButtonHolder
 from crispy_forms.bootstrap import FormActions, PrependedAppendedText, StrictButton
+from crispy_forms.bootstrap import FormActions, PrependedAppendedText
 
 from obay.models import Item, Bid, User, UserProfile
 
-# TODO: save image to subdirectory
+# TODO: save image to subdirectory for auction
 class ItemForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -28,7 +28,8 @@ class ItemForm(forms.ModelForm):
                 'category'
                 ),
             FormActions(
-                Submit('submit', 'Add item')
+                Submit('submit', 'Submit'),
+                Button('cancel', 'Cancel', onclick='history.go(-1);')
                 )
             )
         self.fields['description'].widget.attrs['rows'] = 4

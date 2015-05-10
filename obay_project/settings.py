@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
-    SECRET_KEY = f.read().strip() 
+    SECRET_KEY = f.read().strip()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -57,9 +57,9 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
-    
+
     'registration',
-    'sorl.thumbnail',    
+    'sorl.thumbnail',
     'crispy_forms',
     'obay',
 )
@@ -112,7 +112,7 @@ LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-STATIC_PATH = os.path.join(BASE_DIR, 'obay/static')
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     STATIC_PATH,
@@ -136,8 +136,8 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
-try: 
-    import local_settings
+try:
+    from local_settings import *
 except:
     print """
     =======================================
