@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load crispy_forms_tags %}
 
 {% block title %}{{ category_name }}{% endblock %}
 
@@ -35,19 +36,7 @@
         {% if item.auction.bidding_open %}
             {% if user.is_authenticated %} 
                 <p>Want this item? Give us a bid!</p>     
-                <form id='bid_form' method='post' action="{% url 'item' item_name_slug %}">
-                    {% csrf_token %}
-                    {% for hidden in form.hidden_fields %}
-                        {{ hidden }}
-                    {% endfor %}
-
-                    {% for field in form.visible_fields %}
-                        {{ field.errors}}
-                        {{ field.help_text }}
-                        {{ field }}                    
-                    {% endfor %}
-                    <button type="submit" class='btn btn-sm btn-primary'>Bid!</button>
-                </form>
+                {% crispy form %}
             {% else %}
                 <p><a href="{% url 'auth_login' %}">Sign in</a> and be the first to bid on this!</p>
             {% endif %}
