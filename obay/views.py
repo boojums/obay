@@ -24,7 +24,8 @@ def index(request):
         noo = False
         item_list = Item.objects.filter(auction=current_auction, approved=True).order_by('name')[:] 
     
-    paginator = Paginator(item_list, 3, orphans=2)
+    # Paginate for more edible page loads
+    paginator = Paginator(item_list, 12, orphans=2)
     page = request.GET.get('page')    
     try:
         items = paginator.page(page)

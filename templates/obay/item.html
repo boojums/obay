@@ -9,7 +9,10 @@
     {% if item %}
         <h1>{{ item.name }}</h1>
         <img src="{{ item.pic.url }}" style="height:350px">        
+        <h4>Description</h4>
         <p>{{ item.description }}</p>
+        <h5>Donated by: <small>{{ item.donor }}</small></h5>
+
 
         {% if bids %}
             <table class="table table-striped table-condensed table-hover">
