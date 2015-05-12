@@ -46,9 +46,10 @@ class Auction(models.Model):
         return self.name
 
 class Item(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128, unique=False)
     # TODO: media directory for each auction
-    pic = ResizedImageField(size=[1000,1000], quality=75, upload_to='item_images/')
+    pic = ResizedImageField(size=[1000,1000], 
+                quality=75, upload_to='item_images/')
     description = models.TextField()
     slug = models.SlugField(unique=True)
     auction = models.ForeignKey(Auction)

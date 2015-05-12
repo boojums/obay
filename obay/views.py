@@ -91,9 +91,10 @@ def my_items(request):
 
 @permission_required('obay.can_add_item', raise_exception=False)
 def add_item(request):
+
     if request.method == 'POST':
         form = ItemForm(request.POST, request.FILES)
-
+        
         if form.is_valid():
             item = form.save(commit=False)
             item.auction = Auction.objects.get(is_active=True)
@@ -108,26 +109,29 @@ def add_item(request):
     return render(request, 'obay/add_item.html', {'form': form})
 
 @permission_required('obay.can_edit_item', raise_exception=False)
-def edit_item(request, item_name_slug=None):
-    if item_name_slug:
-        item = get_object_or_404(Item, slug=item_name_slug)
-        if item.contact != request.user:
+def edit_item(request, item_name_slug):
+    
+    item = get_object_or_404(Item, slug=item_name_slug)
+    if item.contact != request.user:
             return HttpResponseForbidden()
-    else:
-        item = Item(contact=request.user)
-
+    
     if request.method == 'POST':
+        print 'in edit_item post'
+
         form = ItemForm(request.POST, request.FILES, instance=item)
 
         if form.is_valid():
             item = form.save(commit=False)
-            item.auction = Auction.objects.get(is_active=True)
-            #item.contact = request.user
+            if item.slug != item_name_slug:
+                print 'remove old item'
+
             item.save()
-            return redirect('index')
+            return redirect('item', item.slug)
         else:
             print form.errors
     else:
         form = ItemForm(instance=item)
+        form.helper.form_action = ''
+        form.fields['pic'].required = False
 
-    return render(request, 'obay/add_item.html', {'form': form})
+    return render(request, 'obay/edit_item.html', {'form': form, 'item_name_slug': item_name_slug})

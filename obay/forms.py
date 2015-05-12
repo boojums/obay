@@ -1,9 +1,11 @@
 from django import forms
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
+from django.contrib.admin.widgets import AdminFileWidget
+
 from crispy_forms.helper import FormHelper
 from crispy_forms.bootstrap import FormActions, PrependedAppendedText, StrictButton
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Button
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, Submit, Button, HTML
 
 from obay.models import Item, Bid, User, UserProfile
 
@@ -24,6 +26,9 @@ class ItemForm(forms.ModelForm):
                 'name',
                 'description',
                 'donor',
+                #HTML('''{% if form.pic.value %}
+                #    <img class="img-responsive" src="{{ MEDIA_URL }}{{ form.pic.value }}">
+                #    {% endif %}''', ),
                 'pic',
                 'category'
                 ),
@@ -33,7 +38,7 @@ class ItemForm(forms.ModelForm):
                 )
             )
         self.fields['description'].widget.attrs['rows'] = 4
-    
+
     class Meta:
         model = Item
         fields = ('name', 'description', 'donor', 'pic', 'category')
@@ -53,7 +58,6 @@ class BidForm(forms.ModelForm):
             PrependedAppendedText('amount', '$', '.00'),
             Submit('submit', 'Bid', css_class='btn-primary')
             )
-
 
     class Meta:
         model = Bid
