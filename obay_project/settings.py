@@ -57,11 +57,16 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.humanize',
+    'django.contrib.sites',
+
+    'obay',
 
     'registration',
     'sorl.thumbnail',
     'crispy_forms',
-    'obay',
+    'fluent_comments',
+    'django_comments',
+
 )
 
 MIDDLEWARE_CLASSES = (
@@ -117,10 +122,16 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Template locations
+TEMPLATE_LOADERS = (
+    'django.template.loaders.filesystem.Loader',
+    'django.template.loaders.app_directories.Loader',
+    )
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 TEMPLATE_DIRS = (
@@ -135,6 +146,12 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 # crispy default template pack
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
+# SITE_ID must be defined for django_comments
+SITE_ID = 1
+
+# COMMENTS_APP required for fluent_comments
+COMMENTS_APP = 'fluent_comments'
+FLUENT_COMMENTS_EXCLUDE_FIELDS = ('email', 'url')
 
 try:
     from local_settings import *

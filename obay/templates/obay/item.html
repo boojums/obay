@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% load humanize %}
 {% load crispy_forms_tags %}
+{% load staticfiles %}
+{% load comments %}
+
+
 
 {% block title %}{{ category_name }}{% endblock %}
 
 {% block body_block %}
+
     <h1>{{ item_name }}</h1>
     {% if item %}
         <h1>{{ item.name }}</h1>
@@ -46,8 +51,15 @@
         {% else %}
             <strong>Bidding is not open!</strong><br />            
         {% endif %}
+
+        <hr />
+            {% render_comment_list for item %}
+            {% if user.is_authenticated %}
+                {% render_comment_form for item %}
+            {% endif %}
     {% else %}
         The specified item {{ item_name }} does not exist!
-    {% endif %}   
+    {% endif %}       
+<script type="text/javascript" src="{% static 'fluent_comments/js/ajaxcomments.js' %}"></script>    
 {% endblock %}
 

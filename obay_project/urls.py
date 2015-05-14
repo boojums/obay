@@ -18,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^obay/', include('obay.urls')),
     (r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^blog/comments/', include('fluent_comments.urls')),
 )
 
 if settings.DEBUG:
