@@ -13,11 +13,11 @@
     {% if item %}
         <h1>{{ item.name }}</h1>
         <div class="row">
-            <div class="col-sm-4 col-sm-push-8">
+            <div class="col-sm-6 col-sm-push-6">
                 <img src="{{ item.pic.url }}" style="height:350px">
                 <h5>Donated by: <small>{{ item.donor }}</small></h5>
             </div>           
-            <div class="col-sm-8 col-sm-pull-4">
+            <div class="col-sm-6 col-sm-pull-6">
                 <p>{{ item.description }}</p>
                 <br />
                 {% if bids %}
@@ -32,9 +32,9 @@
                         <tbody>
                             {% for bid in bids %}                              
                             <tr>
-                                <td width=10%>{{ bid.user.username }}</td>
-                                <td width=10%>${{ bid.amount }}</td>
-                                <td width=20%>{{ bid.time|naturaltime }}</td>
+                                <td width=5%>{{ bid.user.username }}</td>
+                                <td width=5%>${{ bid.amount }}</td>
+                                <td width=15%>{{ bid.time|naturaltime }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -43,7 +43,7 @@
                     <strong>No bids yet!</strong><br />
                 {% endif %} 
 
-                {% if item.auction.bidding_open %}
+                {% if item.auction.is_open %}
                     {% if user.is_authenticated %} 
                         <p>Want this item? Give us a bid!</p>     
                         {% crispy form %}
