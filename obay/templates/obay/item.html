@@ -2,7 +2,7 @@
 {% load humanize %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
-{% load comments %}
+{% load comments %} 
 
 
 {% block title %}{{ category_name }}{% endblock %}
@@ -80,7 +80,6 @@
 
     {% else %}
         The specified item {{ item_name }} does not exist!
-    {% endif %}       
-<script type="text/javascript" src="{% static 'fluent_comments/js/ajaxcomments.js' %}"></script>    
+    {% endif %}
 {% endblock %}
 
