@@ -1,0 +1,11 @@
+appnope==0.1.0
+decorator==4.0.9
+ecdsa==0.13
+gnureadline==6.3.3
+path.py==8.1.2
+pexpect==4.0.1
+pickleshare==0.6
+ptyprocess==0.5.1
+pycrypto==2.6.1
+simplegeneric==0.8.1
+traitlets==4.1.0
