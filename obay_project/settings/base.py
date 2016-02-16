@@ -158,5 +158,4 @@ SITE_ID = 1
 
 # COMMENTS_APP required for fluent_comments
 COMMENTS_APP = 'fluent_comments'
-FLUENT_COMMENTS_EXCLUDE_FIELDS = ('email', 'url')
-
+FLUENT_COMMENTS_EXCLUDE_FIELDS = ('name', 'email', 'url')
