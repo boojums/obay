@@ -5,7 +5,6 @@
 {% load comments %}
 
 
-
 {% block title %}{{ category_name }}{% endblock %}
 
 {% block body_block %}
@@ -58,15 +57,27 @@
         </div>
 
         <hr />
-        <p>Have a question about this item? Ask here!</p>
+        {% get_comment_count for item as comment_count %}
+        {% if comment_count > 0 %}
+            <div class="row">
+                <div class="col-md-6">
+                    {% render_comment_list for item %}
+                </div>
+            </div>
+        {% endif %}
+
+        <hr />
         <div class="row">
             <div class="col-md-6">
-                {% render_comment_list for item %}
                 {% if user.is_authenticated %}
+                    <p>Have a question about this item? Ask here!</p>
                     {% render_comment_form for item %}
+                {% else %}
+                    <p>Log in to ask a question about this item.</p>
                 {% endif %}
             </div>
         </div>
+
     {% else %}
         The specified item {{ item_name }} does not exist!
     {% endif %}       

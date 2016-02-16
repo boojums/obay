@@ -23,12 +23,6 @@ with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# if DEBUG:
-#     # Dev server email settings
-#     # python -m smtpd -n -c DebuggingServer localhost:1025
-#     MAIL_HOST = 'localhost'
-#     EMAIL_PORT = 1025
-
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
@@ -61,6 +55,7 @@ INSTALLED_APPS = (
 
     'obay',
 
+    'django_extensions',
     'registration',
     'sorl.thumbnail',
     'crispy_forms',
