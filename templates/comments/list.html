@@ -1,0 +1,11 @@
+<dl id="comments">
+  {% for comment in comment_list %}
+    <dd>
+      <p>{{ comment.comment }}</p>
+    </dd>
+    <dt id="c{{ comment.id }}">
+       {{ comment.name }} - {{ comment.submit_date }}
+       <hr />
+    </dt>    
+  {% endfor %}
+</dl>

@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 
 from django_resized import ResizedImageField
 
+
 # TODO: implement custom manager for active Auction stuff
 class Auction(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -24,7 +25,8 @@ class Auction(models.Model):
 
     def time_left(self):
         ''' Return timedelta until end of auction for more customization.'''
-        # Need to both be aware or naive, so set now to have same tz as used in Auction
+        # Need to both be aware or naive, so set now to have
+        # same tz as used in Auction
         tz = self.end.tzinfo
         now = dt.datetime.now(tz=tz)
         diff = self.end - now
@@ -45,11 +47,12 @@ class Auction(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Item(models.Model):
     name = models.CharField(max_length=128, unique=False)
     # TODO: media directory for each auction
-    pic = ResizedImageField(size=[1000,1000], 
-                quality=75, upload_to='item_images/')
+    pic = ResizedImageField(size=[1000, 1000],
+                            quality=75, upload_to='item_images/')
     description = models.TextField()
     slug = models.SlugField(unique=True)
     auction = models.ForeignKey(Auction)
@@ -79,11 +82,15 @@ class Item(models.Model):
         return top
 
     def save(self, *args, **kwargs):
-         self.slug = slugify(self.name)
-         super(Item, self).save(*args, **kwargs)
+        self.slug = slugify(self.name)
+        super(Item, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return '/items/obay/item/{}'.format(self.slug)
 
     def __unicode__(self):
         return self.name
+
 
 class Bid(models.Model):
     item = models.ForeignKey(Item)
@@ -94,7 +101,8 @@ class Bid(models.Model):
     def __unicode__(self):
         return '{0} - {1}'.format(self.time, self.amount)
 
-# TODO: support unicode username admin field 
+
+# TODO: support unicode username admin field
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
