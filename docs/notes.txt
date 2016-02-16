@@ -1,0 +1,43 @@
+To get admin css working:
+
+=======================
+Static files
+=======================
+Set up static files in Django:
+https://www.pythonanywhere.com/wiki/DjangoStaticFiles
+
+set STATIC_ROOT in settings.py (should be project/static/)
+run manage.py collectstatic
+set up a Static Files entry on the PythonAnywhere Web tab
+
+(also did the same for the media_root but I don't know if it works)
+
+
+=======================
+Fixtures
+========================
+To get fixtures working:
+
+python manage.py dumpdata --natural -e contenttypes -e auth.Permission > fixtures/obay_fixtures.json 
+
+Then use:
+python manage.py loaddata fixtures/obay_fixtures.json
+(maybe after python manage.py flush to empy the db)
+
+
+=======================
+SMTP settings
+=======================
+server: mail.boojumware.com
+port: 587
+user: 
+pass: Pretzel5!
+
+
+=======================
+Install Pillow
+=======================
+On MacOS you need the xcode command line tools:
+xcode-select --install
+
+
