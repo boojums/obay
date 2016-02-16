@@ -8,10 +8,21 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
+'''
+SETUP
+=====
+
+In $VIRTUAL_ENV/bin/postactivate:
+export DJANGO_SETTINGS_MODULE="obay_project.settings.development"
+
+In $VIRTUAL_ENV/bin/predeactivate
+unset DJANGO_SETTINGS_MODULE
+'''
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+print BASE_DIR
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
@@ -20,8 +31,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 with open(os.path.join(BASE_DIR, 'secret_key.txt')) as f:
     SECRET_KEY = f.read().strip()
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
 
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
@@ -117,7 +126,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     STATIC_PATH,
 )
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -148,11 +156,3 @@ SITE_ID = 1
 COMMENTS_APP = 'fluent_comments'
 FLUENT_COMMENTS_EXCLUDE_FIELDS = ('email', 'url')
 
-try:
-    from local_settings import *
-except:
-    print """
-    =======================================
-    Missing local_settings.py file. Needed for email and database information.
-    =======================================
-    """
