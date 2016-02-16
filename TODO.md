@@ -4,7 +4,7 @@
  ☐ ajax comments
 
 Need to do:
-  ☐ TESTING
+  ☐ TESTING (with py.test)
 
  Future:
  ☐ CDN fallback: http://www.hanselman.com/blog/CDNsFailButYourScriptsDontHaveToFallbackFromCDNToLocalJQuery.aspx
