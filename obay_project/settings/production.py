@@ -12,4 +12,4 @@ EMAIL_PORT = '587'
 EMAIL_USE_TLS = 'TRUE'
 
 # Static files
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join('/home/boojum/obay_static')

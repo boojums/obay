@@ -17,6 +17,10 @@ export DJANGO_SETTINGS_MODULE="obay_project.settings.development"
 
 In $VIRTUAL_ENV/bin/predeactivate
 unset DJANGO_SETTINGS_MODULE
+
+For production this needs to be set also in the wsgi.py file:
+os.environ['DJANGO_SETTINGS_MODULE'] = 'obay_project.settings.production'
+
 '''
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
